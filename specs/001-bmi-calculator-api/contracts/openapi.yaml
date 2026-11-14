@@ -1,0 +1,161 @@
+openapi: 3.1.0
+info:
+  title: BMI Calculator API
+  version: 1.0.0
+  description: Stateless BMI calculation and optional email delivery.
+servers:
+  - url: /
+paths:
+  /:
+    get:
+      operationId: getApiAvailability
+      summary: Check API availability
+      responses:
+        "200":
+          description: The API is available.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiAvailability"
+  /health:
+    get:
+      operationId: getHealth
+      summary: Check application health
+      responses:
+        "200":
+          description: The application is operational.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+  /api/v1/bmi/calculate:
+    post:
+      operationId: calculateBmi
+      summary: Calculate BMI
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BmiInput"
+      responses:
+        "200":
+          description: BMI calculation completed.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BmiResult"
+        "422":
+          description: The request contains invalid measurement data.
+  /api/v1/bmi/send-email:
+    post:
+      operationId: sendBmiEmail
+      summary: Request email delivery of a BMI result
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EmailRequest"
+      responses:
+        "200":
+          description: The SMTP server accepted the message for delivery; inbox receipt is not confirmed.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmailResponse"
+        "422":
+          description: The recipient or measurements are invalid.
+        "502":
+          description: The mail server could not accept delivery.
+        "503":
+          description: Mail delivery is not configured.
+components:
+  schemas:
+    BmiInput:
+      type: object
+      additionalProperties: false
+      required:
+        - weight
+        - height
+      properties:
+        weight:
+          type: number
+          exclusiveMinimum: 0
+          description: Weight in kilograms; must be finite.
+        height:
+          type: number
+          exclusiveMinimum: 0
+          description: Height in meters; must be finite.
+    BmiResult:
+      type: object
+      required:
+        - weight
+        - height
+        - bmi
+        - category
+      properties:
+        weight:
+          type: number
+          exclusiveMinimum: 0
+          description: Weight in kilograms; must be finite.
+        height:
+          type: number
+          exclusiveMinimum: 0
+          description: Height in meters; must be finite.
+        bmi:
+          type: number
+          description: Calculated BMI rounded to two decimal places.
+        category:
+          type: string
+          enum:
+            - Bajo peso
+            - Peso normal
+            - Sobrepeso
+            - Obesidad
+    EmailRequest:
+      type: object
+      required:
+        - email
+        - weight
+        - height
+      properties:
+        email:
+          type: string
+          format: email
+        weight:
+          type: number
+          exclusiveMinimum: 0
+          description: Weight in kilograms; must be finite.
+        height:
+          type: number
+          exclusiveMinimum: 0
+          description: Height in meters; must be finite.
+    EmailResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - status
+        - message
+      properties:
+        status:
+          type: string
+          const: accepted
+        message:
+          type: string
+    ApiAvailability:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          const: available
+    HealthStatus:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          const: healthy
