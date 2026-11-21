@@ -1,0 +1,11 @@
+charset-normalizer==3.5.2
+pillow==13.0.0
+pypdf==7.1.1
+reportlab==5.1.0
+fastapi
+pydantic
+uvicorn
+python-dotenv
+email-validator
+pytest
+httpx

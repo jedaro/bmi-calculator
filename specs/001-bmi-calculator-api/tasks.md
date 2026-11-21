@@ -1,7 +1,6 @@
-
----
 description: "Implementation tasks for the BMI Calculator API"
----
+--------------------------------------------------------------
+
 # Tasks: BMI Calculator API
 
 **Input**: Design documents from `specs/001-bmi-calculator-api/`
@@ -22,9 +21,9 @@ description: "Implementation tasks for the BMI Calculator API"
 
 **Purpose**: Create the application skeleton and declare the mandated runtime and test dependencies.
 
-- [ ] T001 Create Python package initializer files at `app/__init__.py`, `app/api/__init__.py`, `app/api/endpoints/__init__.py`, `app/schemas/__init__.py`, `app/services/__init__.py`, and `app/core/__init__.py`; create the `tests/` directory.
-- [ ] T002 [P] Add FastAPI, Pydantic, Uvicorn, python-dotenv, email-validator, Pytest, and HTTPX dependencies to `requirements.txt`.
-- [ ] T003 [P] Add `.env` and local Python/test artifacts to `.gitignore`; add placeholder-only SMTP variable names and values to `.env.example` for `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURITY`, `SMTP_USERNAME`, `SMTP_PASSWORD`, `SMTP_SENDER`, and `SMTP_TIMEOUT_SECONDS`.
+- [X] T001 Create Python package initializer files at `app/__init__.py`, `app/api/__init__.py`, `app/api/endpoints/__init__.py`, `app/schemas/__init__.py`, `app/services/__init__.py`, and `app/core/__init__.py`; create the `tests/` directory.
+- [X] T002 [P] Add FastAPI, Pydantic, Uvicorn, python-dotenv, email-validator, Pytest, and HTTPX dependencies to `requirements.txt`.
+- [X] T003 [P] Add `.env` and local Python/test artifacts to `.gitignore`; add placeholder-only SMTP variable names and values to `.env.example` for `SMTP_HOST`, `SMTP_PORT`, `SMTP_SECURITY`, `SMTP_USERNAME`, `SMTP_PASSWORD`, `SMTP_SENDER`, and `SMTP_TIMEOUT_SECONDS`.
 
 ---
 
@@ -32,9 +31,9 @@ description: "Implementation tasks for the BMI Calculator API"
 
 **Purpose**: Establish the importable FastAPI application and shared HTTP test setup required by the stories.
 
-- [ ] T004 Create a reusable FastAPI `TestClient` fixture in `tests/conftest.py`.
-- [ ] T005 Add an application bootstrap test that verifies `/docs` and the generated OpenAPI document are available in `tests/test_app.py`.
-- [ ] T006 Create the FastAPI application with title, version, and `/docs` enabled in `app/main.py`.
+- [X] T004 Create a reusable FastAPI `TestClient` fixture in `tests/conftest.py`.
+- [X] T005 Add an application bootstrap test that verifies `/docs` and the generated OpenAPI document are available in `tests/test_app.py`.
+- [X] T006 Create the FastAPI application with title, version, and `/docs` enabled in `app/main.py`.
 
 **Checkpoint**: The app imports and its documentation endpoint can be tested before story-specific routes are added.
 
@@ -48,18 +47,18 @@ description: "Implementation tasks for the BMI Calculator API"
 
 ### Tests for User Story 1
 
-- [ ] T007 [P] [US1] Add service tests for the formula, two-decimal display value, unrounded category selection at 18.5, 25, and 30, and non-positive or non-finite inputs in `tests/test_bmi_service.py`.
-- [ ] T008 [P] [US1] Add API tests for `POST /api/v1/bmi/calculate`, including the `75` / `1.75` response and HTTP 422 for missing, non-numeric, zero, negative, or non-finite measurements, in `tests/test_bmi_api.py`.
+- [X] T007 [P] [US1] Add service tests for the formula, two-decimal display value, unrounded category selection at 18.5, 25, and 30, and non-positive or non-finite inputs in `tests/test_bmi_service.py`.
+- [X] T008 [P] [US1] Add API tests for `POST /api/v1/bmi/calculate`, including the `75` / `1.75` response and HTTP 422 for missing, non-numeric, zero, negative, or non-finite measurements, in `tests/test_bmi_api.py`.
 
 ### Implementation for User Story 1
 
-- [ ] T009 [P] [US1] Define BMI request and result schemas in `app/schemas/bmi.py`; require weight and height to be “Finite and greater than 0” and return weight, height, rounded BMI, and one of the four adult category labels.
-- [ ] T010 [P] [US1] Implement the framework-independent BMI formula and adult categories in `app/services/bmi_service.py`: below 18.5 `Bajo peso`, 18.5 to below 25 `Peso normal`, 25 to below 30 `Sobrepeso`, and 30 or above `Obesidad`; classify using unrounded BMI and round only the displayed result to two decimals.
-- [ ] T011 [US1] Implement `POST /api/v1/bmi/calculate` in `app/api/endpoints/bmi.py`, validate with the BMI schemas, call the BMI service, and return clear HTTP 422 validation errors.
-- [ ] T012 [US1] Create the Spanish-language calculation form, result area, email field, initially disabled email button, and informational-not-diagnosis note in `frontend/index.html`.
-- [ ] T013 [P] [US1] Add simple responsive styling and visible focus/status states for the form and result in `frontend/styles.css`.
-- [ ] T014 [P] [US1] Implement the calculation request and result/error rendering in `frontend/app.js`; do not duplicate BMI logic, enable email submission only after a valid calculation, and invalidate the displayed calculation and disable email submission whenever either measurement changes.
-- [ ] T015 [US1] Register the BMI router and mount `frontend/` at `/ui/` in `app/main.py` without taking over `/`; add the root and health availability routes in US3.
+- [X] T009 [P] [US1] Define BMI request and result schemas in `app/schemas/bmi.py`; require weight and height to be “Finite and greater than 0” and return weight, height, rounded BMI, and one of the four adult category labels.
+- [X] T010 [P] [US1] Implement the framework-independent BMI formula and adult categories in `app/services/bmi_service.py`: below 18.5 `Bajo peso`, 18.5 to below 25 `Peso normal`, 25 to below 30 `Sobrepeso`, and 30 or above `Obesidad`; classify using unrounded BMI and round only the displayed result to two decimals.
+- [X] T011 [US1] Implement `POST /api/v1/bmi/calculate` in `app/api/endpoints/bmi.py`, validate with the BMI schemas, call the BMI service, and return clear HTTP 422 validation errors.
+- [X] T012 [US1] Create the Spanish-language calculation form, result area, email field, initially disabled email button, and informational-not-diagnosis note in `frontend/index.html`.
+- [X] T013 [P] [US1] Add simple responsive styling and visible focus/status states for the form and result in `frontend/styles.css`.
+- [X] T014 [P] [US1] Implement the calculation request and result/error rendering in `frontend/app.js`; do not duplicate BMI logic, enable email submission only after a valid calculation, and invalidate the displayed calculation and disable email submission whenever either measurement changes.
+- [X] T015 [US1] Register the BMI router and mount `frontend/` at `/ui/` in `app/main.py` without taking over `/`; add the root and health availability routes in US3.
 
 **Checkpoint**: The calculation works through both the API and `/ui/`; a current result is required before the email button can be enabled.
 
@@ -73,16 +72,16 @@ description: "Implementation tasks for the BMI Calculator API"
 
 ### Tests for User Story 2
 
-- [ ] T016 [P] [US2] Add email service tests with mocked SMTP for SSL and STARTTLS modes, message greeting/measurements/BMI/category/informational note, SMTP acceptance as the success boundary, and delivery failure handling in `tests/test_email_service.py`.
-- [ ] T017 [P] [US2] Add API tests for valid and invalid email input, an `accepted` response only after SMTP acceptance, missing configuration, SMTP failure status codes, and absence of credentials or inbox-delivery claims in responses in `tests/test_email_api.py`.
+- [X] T016 [P] [US2] Add email service tests with mocked SMTP for SSL and STARTTLS modes, message greeting/measurements/BMI/category/informational note, SMTP acceptance as the success boundary, and delivery failure handling in `tests/test_email_service.py`.
+- [X] T017 [P] [US2] Add API tests for valid and invalid email input, an `accepted` response only after SMTP acceptance, missing configuration, SMTP failure status codes, and absence of credentials or inbox-delivery claims in responses in `tests/test_email_api.py`.
 
 ### Implementation for User Story 2
 
-- [ ] T018 [P] [US2] Define the email request and response schemas in `app/schemas/email.py`; validate the recipient as an email address, keep weight and height “Finite and greater than 0”, and use response status `accepted` only after SMTP acceptance.
-- [ ] T019 [P] [US2] Read SMTP settings from environment variables, load `.env` for local development, support only `starttls` or `ssl`, and allow missing mail settings without preventing app startup in `app/core/config.py`.
-- [ ] T020 [US2] Implement `app/services/email_service.py` using the shared BMI service and Python's `email.message`/`smtplib`; include all required message elements, use a finite timeout and configured secure transport, and do not expose credentials or raw SMTP errors.
-- [ ] T021 [US2] Add `POST /api/v1/bmi/send-email` to `app/api/endpoints/bmi.py`; return status `accepted` only after SMTP accepts the message, HTTP 503 for missing configuration, HTTP 502 for delivery failure, and safe validation errors without claiming inbox receipt.
-- [ ] T022 [US2] Extend `frontend/app.js` to submit the recipient and current measurements, enable sending only for an unchanged valid calculation, show loading/success/failure states, preserve the calculation after email failure, and avoid claiming confirmed inbox receipt.
+- [X] T018 [P] [US2] Define the email request and response schemas in `app/schemas/email.py`; validate the recipient as an email address, keep weight and height “Finite and greater than 0”, and use response status `accepted` only after SMTP acceptance.
+- [X] T019 [P] [US2] Read SMTP settings from environment variables, load `.env` for local development, support only `starttls` or `ssl`, and allow missing mail settings without preventing app startup in `app/core/config.py`.
+- [X] T020 [US2] Implement `app/services/email_service.py` using the shared BMI service and Python's `email.message`/`smtplib`; include all required message elements, use a finite timeout and configured secure transport, and do not expose credentials or raw SMTP errors.
+- [X] T021 [US2] Add `POST /api/v1/bmi/send-email` to `app/api/endpoints/bmi.py`; return status `accepted` only after SMTP accepts the message, HTTP 503 for missing configuration, HTTP 502 for delivery failure, and safe validation errors without claiming inbox receipt.
+- [X] T022 [US2] Extend `frontend/app.js` to submit the recipient and current measurements, enable sending only for an unchanged valid calculation, show loading/success/failure states, preserve the calculation after email failure, and avoid claiming confirmed inbox receipt.
 
 **Checkpoint**: Email requests work with configured SMTP, and automated email tests use mocks only.
 
@@ -96,12 +95,12 @@ description: "Implementation tasks for the BMI Calculator API"
 
 ### Tests for User Story 3
 
-- [ ] T023 [P] [US3] Add tests asserting HTTP 200 and `{"status":"available"}` for `GET /`, plus HTTP 200 and `{"status":"healthy"}` for `GET /health`, in `tests/test_health_api.py`.
+- [X] T023 [P] [US3] Add tests asserting HTTP 200 and `{"status":"available"}` for `GET /`, plus HTTP 200 and `{"status":"healthy"}` for `GET /health`, in `tests/test_health_api.py`.
 
 ### Implementation for User Story 3
 
-- [ ] T024 [US3] Implement the root availability response and `/health` operational status in `app/api/endpoints/health.py`.
-- [ ] T025 [US3] Register the health router in `app/main.py` without changing the `/ui/` static interface mount.
+- [X] T024 [US3] Implement the root availability response and `/health` operational status in `app/api/endpoints/health.py`.
+- [X] T025 [US3] Register the health router in `app/main.py` without changing the `/ui/` static interface mount.
 
 **Checkpoint**: Both availability operations return their documented successful responses when the application is running.
 
@@ -111,8 +110,8 @@ description: "Implementation tasks for the BMI Calculator API"
 
 **Purpose**: Document operation and verify the complete feature against its design artifacts.
 
-- [ ] T026 Document local/classroom-only use and the prohibition on public Internet exposure, plus setup, startup, `/docs`, `/ui/`, API operations, SMTP environment variables, and tests, in `README.md`.
-- [ ] T027 Run `pytest` and validate the calculation, email acceptance semantics, local-only scope, availability, and browser scenarios in `specs/001-bmi-calculator-api/quickstart.md`; correct any mismatch in the implementation or documentation.
+- [X] T026 Document local/classroom-only use and the prohibition on public Internet exposure, plus setup, startup, `/docs`, `/ui/`, API operations, SMTP environment variables, and tests, in `README.md`.
+- [X] T027 Run `pytest` and validate the calculation, email acceptance semantics, local-only scope, availability, and browser scenarios in `specs/001-bmi-calculator-api/quickstart.md`; correct any mismatch in the implementation or documentation.
 
 ---
 
@@ -191,3 +190,7 @@ then implement T024 app/api/endpoints/health.py and register it in T025 app/main
 - Every task uses the required checkbox, sequential ID, optional parallel marker, required story label for story phases, and explicit file path.
 - Story tests are required by FR-014; SMTP is mocked and no SMTP server is required for automated tests.
 - No database, authentication, user history, frontend framework, or mail framework is in scope.
+
+## Phase 7: Convergence
+
+- [X] T028 Review or remove the unrequested `charset-normalizer`, `pillow`, `pypdf`, and `reportlab` dependencies from `requirements.txt` because they are not justified by the BMI feature or implementation plan (Constitution III — unrequested)
