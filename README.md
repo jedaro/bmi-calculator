@@ -63,7 +63,7 @@ Keep real credentials out of source control.
 ## Tests
 
 ```sh
-pytest
+.venv/bin/python -m pytest
 ```
 
 The test suite mocks SMTP delivery and does not require a real mail server.
